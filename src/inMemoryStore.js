@@ -2,9 +2,16 @@ function inMemoryStore () {
     var items = [];
 
     return {
-        add: function(object) {
-            console.log('Adding object');
-            items.push(object);
+        add: function(data) {
+            if (!data) {
+                return;
+            }
+
+            data.name = data.name || 'Untitled';
+            data.sequence = data.sequence || null;
+            data.timestamp = data.timestamp || null;
+
+            items.push(data);
         },
         items: function() {
             return items;
@@ -12,4 +19,5 @@ function inMemoryStore () {
     }
 }
 
-exports = module.exports = inMemoryStore();
+module.exports = inMemoryStore();
+

@@ -1,0 +1,17 @@
+html
+head
+title!= pageTitle
+body
+h1!= pageHeader
+
+each obj in objs
+   div
+       span Name
+       span!= obj.name
+   div
+       span Sequence
+       span!= obj.sequence
+   div
+       span Timestamp
+       span!= obj.timestamp
+
