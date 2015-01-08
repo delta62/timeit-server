@@ -1,5 +1,3 @@
-var path = require('path');
-
 module.exports = function(grunt) {
 
     grunt.initConfig({
@@ -12,7 +10,7 @@ module.exports = function(grunt) {
                 options: {
                     port: 8080,
                     serverreload: true,
-                    server: path.resolve('./src/server.js')
+                    server: 'src/server.js'
                 }
             }
         }

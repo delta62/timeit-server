@@ -3,8 +3,8 @@ var bodyParser = require('body-parser');
 var store = require('./inMemoryStore');
 
 var app = express();
-app.use(bodyParser.json());
 
+app.use(bodyParser.json());
 app.set('views', 'src/tmpls');
 app.set('view engine', 'jade');
 
@@ -19,7 +19,11 @@ app.post('/data', function(request, response) {
 });
 
 app.use('/repository', function(request, response) {
-    response.render('repositoryDump', { pageTitle: 'timeit-server raw dump', message: 'Timeit Server Dump', objs: store.items() });
+    response.render('repositoryDump', {
+        pageTitle: 'timeit-server raw dump',
+        message: 'timeit-server Dump',
+        objs: store.items()
+    });
 });
 
 app.use(express.static('src/public'));

@@ -1,18 +1,23 @@
 function inMemoryStore () {
     var items = [];
 
+    function add (data) {
+        if (!data) {
+            return;
+        }
+
+        validateDataObject(data);
+        items.push(data);
+    }
+
+    function validateDataObject (data) {
+        data.name = data.name || 'Untitled';
+        data.sequence = data.sequence || null;
+        data.timestamp = data.timestamp || null;
+    }
+
     return {
-        add: function(data) {
-            if (!data) {
-                return;
-            }
-
-            data.name = data.name || 'Untitled';
-            data.sequence = data.sequence || null;
-            data.timestamp = data.timestamp || null;
-
-            items.push(data);
-        },
+        add: add,
         items: function() {
             return items;
         }
@@ -20,4 +25,3 @@ function inMemoryStore () {
 }
 
 module.exports = inMemoryStore();
-
