@@ -20,5 +20,8 @@
   ],
   "devDependencies": {
     "underscore": "~1.7.0"
+  },
+  "dependencies": {
+    "chartjs": "~1.0.1"
   }
 }
