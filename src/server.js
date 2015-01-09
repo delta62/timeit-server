@@ -1,6 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var store = require('./inMemoryStore');
+var cors = require('express-cors')
 
 var app = express();
 
