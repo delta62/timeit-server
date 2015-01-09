@@ -1,6 +1,6 @@
-(function() {
-    function buildChart(data) {
-        var ctx = $("#myChart").get(0).getContext("2d");
+(function () {
+    function buildChart (data) {
+        var ctx = $("#neverEndingScrollChart").get(0).getContext("2d");
         var data = {
             labels: buildLabels(data),
             datasets: [
@@ -23,16 +23,30 @@
     function buildLabels (data) {
         var labels = [];
         _.each(data, function(entry) {
-            labels.push(entry.name);
+            if (!_.find(labels, function(label) { return entry.sequence === label; })) {
+                labels.push(entry.sequence);
+            }
         });
+
         return labels;
     }
 
     function buildDataSet (data) {
-        var set = [];
+        var set = [],
+             start = null,
+             end = null;
+
         _.each(data, function(entry) {
-            set.push(entry.timestamp);
+            if (entry.name === "neverEndingScroll.scrollStart") {
+                start = entry;
+            } else if (entry.name === "neverEndingScroll.scrollFinished") {
+                end = entry;
+                if (start !== null) {
+                    set.push((end.timestamp - start.timestamp));
+                }
+            }
         });
+
         return set;
     }
 
@@ -40,13 +54,13 @@
         $.ajax({
             url: 'http://localhost:8080/V1/session/default',
             headers: {
-              "Accept": "application/json"
+                "Accept": "application/json"
             },
             success: function(data) {
                 buildChart(data);
             },
-            error: function (a,b,c,d) {
-                alert('error');
+            error: function () {
+                alert('Opps - something went wrong.');
             }
         });
     });

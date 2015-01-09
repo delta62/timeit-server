@@ -2,6 +2,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var store = require('./inMemoryStore');
 
+var defaultSession = "default";
 var app = express();
 
 app.use(bodyParser.json());
@@ -24,7 +25,11 @@ app.post('/v1/data', function (request, response) {
     response.send();
 });
 
-app.use('/v1/repository', function (request, response) {
+app.use('/v1/session/:sessionId', function (request, response) {
+    if (!request.sessionId) {
+        request.sessionId = defaultSession;
+    }
+
     response.format({
         text: function () {
             response.send('NOT SUPPORTED');
@@ -33,17 +38,17 @@ app.use('/v1/repository', function (request, response) {
             response.render('repositoryDump', {
                 pageTitle: 'timeit-server raw dump',
                 message: 'timeit-server Dump',
-                objs: store.items()
+                objs: store.getSessionItems(defaultSession)
             });
         },
         json: function () {
-            response.send(store.items());
+            response.send(store.getSessionItems(defaultSession));
         },
         xml: function () {
             response.send('NOT SUPPORTED');
         },
         default: function () {
-            response.send(store.items());
+            response.send(store.getSessionItems(defaultSession));
         }
     });
 });
