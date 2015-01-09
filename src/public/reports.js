@@ -1,5 +1,12 @@
 (function() {
+    Chart.defaults.global.animation = false;
+    var chart = null;
+
     function buildChart(data) {
+        if (chart) {
+            chart.destroy();
+        }
+
         var ctx = $("#myChart").get(0).getContext("2d");
         var data = {
             labels: buildLabels(data),
@@ -17,7 +24,7 @@
             ]
         };
 
-        new Chart(ctx).Line(data, {});
+        chart = new Chart(ctx).Line(data, {});
     }
 
     function buildLabels (data) {
@@ -36,18 +43,22 @@
         return set;
     }
 
-    $(function() {
+    function fetchData() {
         $.ajax({
             url: 'http://localhost:8080/V1/session/default',
             headers: {
-              "Accept": "application/json"
+                "Accept": "application/json"
             },
             success: function(data) {
                 buildChart(data);
             },
-            error: function (a,b,c,d) {
-                alert('error');
+            complete: function () {
+                setTimeout(fetchData.bind(this), 1000);
             }
         });
+    }
+
+    $(function() {
+        fetchData();
     });
 })();
