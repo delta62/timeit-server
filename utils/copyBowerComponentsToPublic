@@ -1,0 +1,3 @@
+#!/bin/bash
+cp -R ../bower_components/ ../src/public/vendor/
+
