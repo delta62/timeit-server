@@ -8,6 +8,10 @@ app.use(bodyParser.json());
 app.set('views', 'src/tmpls');
 app.set('view engine', 'jade');
 
+app.use(cors({
+    allowedOrigins: ['*']
+}));
+
 app.post('/v1/data', function (request, response) {
     console.log('data received:');
     console.log('==============');
