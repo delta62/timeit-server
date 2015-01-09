@@ -36,17 +36,17 @@ app.use('/v1/session/:sessionId', function (request, response) {
             response.render('repositoryDump', {
                 pageTitle: 'timeit-server raw dump',
                 message: 'timeit-server Dump',
-                objs: store.getSessionItems(defaultSession)
+                objs: getItems(defaultSession)
             });
         },
         json: function () {
-            response.send(store.getSessionItems(defaultSession));
+            response.send(getItems(defaultSession));
         },
         xml: function () {
             response.send('NOT SUPPORTED');
         },
         default: function () {
-            response.send(store.getSessionItems(defaultSession));
+            response.send(getItems(defaultSession));
         }
     });
 });
@@ -55,3 +55,11 @@ app.use('/v1/session/:sessionId', function (request, response) {
 app.use(express.static('src/public'));
 
 module.exports = app;
+
+function getItems(sessionName) {
+    var items = store.getSessionItems(sessionName);
+    if (!items) {
+        items = [];
+    }
+    return items;
+}
