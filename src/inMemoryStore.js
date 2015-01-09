@@ -15,7 +15,7 @@ function inMemoryStore () {
     function validateDataObject (data) {
         data.name = data.name || 'Untitled';
         data.sequence = data.sequence || null;
-        data.timestamp = data.timestamp || null;
+        data.timestamp = parseInt(data.timestamp) || null;
     }
 
     return {

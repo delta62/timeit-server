@@ -1,7 +1,6 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var store = require('./inMemoryStore');
-var cors = require('express-cors')
 
 var app = express();
 
@@ -9,9 +8,10 @@ app.use(bodyParser.json());
 app.set('views', 'src/tmpls');
 app.set('view engine', 'jade');
 
-app.use(cors({
-    allowedOrigins: ['*']
-}));
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    next();
+});
 
 app.post('/v1/data', function (request, response) {
     console.log('data received:');
