@@ -1,3 +1,5 @@
+var _ = require('../bower_components/underscore/underscore');
+
 function inMemoryStore () {
     var items = [];
 
@@ -19,7 +21,7 @@ function inMemoryStore () {
     return {
         add: add,
         items: function() {
-            return items;
+            return _.map(items, _.clone);
         }
     }
 }

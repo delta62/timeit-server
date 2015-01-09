@@ -44,4 +44,4 @@ app.use('/v1/repository', function (request, response) {
 
 app.use(express.static('src/public'));
 
-mßodule.exports = app;
+module.exports = app;
