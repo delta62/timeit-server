@@ -8,8 +8,10 @@ function inMemoryStore () {
             return;
         }
 
-        validateDataObject(data);
-        items.push(data);
+        _.each(data, function(entry) {
+            validateDataObject(entry);
+            items.push(entry);
+        });
     }
 
     function validateDataObject (data) {

@@ -3,7 +3,7 @@ sequence=1
 timestamp=123456789
 
 function createPayload() {
-    payload="{ \"sequence\": \"$1\", \"timestamp\": \"$2\", \"name\": \"$3\" }"
+    payload="[{ \"sequence\": \"$1\", \"timestamp\": \"$2\", \"name\": \"$3\" }]"
 }
 
 function makeRequest() {
