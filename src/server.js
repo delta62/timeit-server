@@ -42,6 +42,7 @@ app.use('/v1/repository', function (request, response) {
     });
 });
 
+
 app.use(express.static('src/public'));
 
 module.exports = app;
